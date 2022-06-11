@@ -1,0 +1,34 @@
+{% load static %}
+
+<input type="hidden" class="question_id" value="{{question.id}}" />
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+    <div class="panel panel-default">
+      <div class="panel-body no-padding blog-post">
+         <p class="blog-date text-bold">{{question.date_published.date}}</p>
+          <h4 class="text-bold no-margin padding_30">{{question.title}}</h4>
+        <div class="blog-post-image">
+            {% if question.image %}
+          <a href="{{question.image.url}}"><img src="{{question.image.url}}" class="img-fluid"></a>
+          {% endif %}
+            {% if question.video %}
+            <video  controls>
+                <source src="{{ question.video.url }}" type='video/mp4'>
+                File not found.
+            </video>
+            {% endif %}
+        </div>
+        
+        <p>{{question.text}}</p>
+        <div class="post-details">
+            <div class="post-details-tags"> <span>Теги:</span>{% for tag in question.get_tags %}<a href="{% url 'tag' tag.slug %}">{{tag.slug}}</a>{% endfor %}</div>
+            <table>
+              <tr>
+               <td><div class="post-details-name"><a href="{% url 'profile' question.author.nickname %}"><span>Автор </span> {{question.author.nickname}}</a></div></td>
+               <td> <div class="post-details-like"><a href="#" class="js-vote"  data-action="like" data-qid="{{question.id}}"><span id="like_{{question.id}}" class="icon-like icons" aria-hidden="true"></span> <span class="rating_{{question.id}}">{{question.rating}}</span></a></div></td>
+               <td> <div class="post-details-comments"><a href="{% url 'one_question' question.id %}"><span>Комментарии</span> {{question.answer_set.count}}</a></div></td>
+              </tr>
+             </table>
+        </div>
+      </div>
+  </div>
+</div>

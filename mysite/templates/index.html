@@ -1,0 +1,18 @@
+{% extends 'include/base.html' %}
+{% load static %}
+
+
+
+                {% block content_head %}
+                    <h3>Новые посты</h3>
+                {% endblock content_head %}
+                {% block content %}
+                        <div class="row">
+                {% for question in  questions %}
+                    {% include "include/question.html" %}
+                {% endfor %}
+                        </div>
+
+                {% include "include/paginator.html" with objects=questions %}
+                {% endblock content %}
+                

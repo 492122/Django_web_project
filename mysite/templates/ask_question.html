@@ -1,0 +1,29 @@
+{% extends 'include/base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+
+
+
+                {% block content_head %}
+                        <h3>Создание поста</h3>
+                {% endblock content_head %}
+                {% block content %}
+                    <div class="row">
+                        <h4 id="erroe-msg" style="color:red">{{ error }}</h4>
+                    </div>
+                    <div class="invoice-form">
+                            <div class="panel-body no-padding">
+                                <form   method="post" novalidate enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {% bootstrap_form form layout='inline' bound_css_class=''%}
+                                    {% buttons %}
+                                        <button type="submit" class="btn btn-primary">
+                                            Создать
+                                        </button>
+                                    {% endbuttons %}
+                        </form>
+                    </div>
+            </div>
+
+                {% endblock content %}

@@ -1,0 +1,40 @@
+{% extends 'include/base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+                {% block content_head %}
+                <h3>Новые посты</h3>
+                {% endblock content_head %}
+                {% block content %}
+                    <div class="row">
+                    <div class="col-lg-4"></div>
+                    {% include "include/question.html" %}
+                    </div>
+                    
+                    {% for answer in answers %}
+                    <div class="row">
+                    <div class="col-lg-3"></div>
+                    {% include "include/answer.html" %}
+                    </div>
+
+                    {% endfor %}
+                 <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                    <div class="row">
+                        <h4 id="erroe-msg" style="color:red">{{ error }}</h4>
+                    </div>
+                    <form  method = "POST" novalidate>
+                    {% csrf_token %}
+                    {% bootstrap_form form layout='inline' bound_css_class=''%}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary">
+                            Принять
+                        </button>
+                    {% endbuttons %}
+                    </form>
+                    {% include "include/paginator.html" with objects=answers %} 
+                    </div>
+                    </div>
+
+                {% endblock content %}

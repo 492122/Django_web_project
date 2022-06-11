@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static "plugins/bootstrap/bootstrap.min.css"%}" >
+    <link href="{% static "css/simple-line-icons.css"%}" rel="stylesheet">
+    <link href="{% static "css/font-awesome.min.css"%}" rel="stylesheet">
+    <link href="{% static "css/custom.css"%}" rel="stylesheet">
+    <link id="ui-current-skin" href="{% static "css/skin-colors/skin-blue.css"%}" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+</head>
+
+<body class="nav-md ">
+    <div class="pace-cover"></div>
+    <div id="st-container" class="st-container st-effect">
+        <div class="container body">
+            <div class="main_container">
+                <div class="col-md-3 left_col">
+                    <div class="scroll-view">
+                        <div class="navbar nav_title">
+                            <h1 class="logo_wrapper">
+                                <a href="{% url 'index' %}" class="site_logo">
+                                    <span class="logo-text">Вулкан</span>
+                                </a>
+                            </h1>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                            <div class="menu_section">
+                                <h3>Фильтры</h3>
+                                <div class="clearfix"></div>
+                                <ul class="nav side-menu">
+                                    <li>
+                                        <a href="{% url 'index' %}"><i class="icon-fire icons"></i><span>Новые посты</span></a>
+                                    </li>
+                                    <li><a href="{% url 'hot' %}"><i class="icon-chart icons"></i> <span>Популярные посты </span></a>
+                                    </li>
+                                    <li><a><i class="icon-home icons"></i><span>Посты из моего отдела</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="menu_section">
+                                <h3>Рейтинги</h3>
+                                <ul class="nav side-menu">
+                                    <li><a><i class="fa fa-star-o" aria-hidden="true"></i> <span>Тэги</span><span
+                                                class="fa fa-angle-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            {% for tag in  tags_rating%}
+                                                <li><a href="{% url 'tag' tag.slug %}"><span>{{tag.slug}}</span></a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    <li><a><i class="icon-people icons" aria-hidden="true"></i>
+                                            <span>Пользователи</span><span class="fa fa-angle-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            {% for profile in users_rating %}
+                                                <li><a href="{% url 'profile' profile.nickname %}"><span>{{profile.nickname}}</span></a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="top_nav">
+                    <div class="nav_menu">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li class="toggle-li">
+                                <div class="nav toggle burger-nav">
+                                    <a id="menu_toggle">
+                                        <div class="burger">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="megamenu-li">
+                                <div class="megamenu">
+                                    <a class="megamenu-trigger" href="{% url 'ask' %}">Создать пост</a>
+                                </div>
+                            </li>
+                        </ul> 
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                    {% if user.profile.avatar %}
+                                        <img src="{{user.profile.avatar.url}}">
+                                    {% else %}
+                                        <img src="{% static 'img/profile-pic.jpg' %}" alt="">
+                                    {% endif %}
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    <li><a href="{% url 'profile' user.profile.nickname %}">Профиль</a></li>
+
+                                    <li>
+                                        <a href="{% url 'settings' %}">
+                                            <span>Настройки</span>
+                                        </a>
+                                    </li>
+                                    <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out pull-right"></i> Выйти</a></li>
+                                </ul>
+                            </li>
+                            <li class="search-wrap">
+                                <a href="javascript:;" id="btn-search" class="search-nav">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="right_col blog-post" role="main">
+                    <div class="spacer_30"></div>
+                    <div class="clearfix"></div>
+                    <div class="header-title-breadcrumb element-box-shadow no-margin">
+                        <div class="container h-100">
+                            <div class="row">
+                                <div class="col-md-7 col-sm-6 col-xs-12 text-left">
+                                    {% block content_head %}
+
+                                    {% endblock content_head %}
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spacer_30"></div>
+                      {% block content %}
+
+                     {% endblock content %} 
+
+                    <a href="#" class="scrollToTop"><i class="fa fa-chevron-up text-white" aria-hidden="true"></i></a>
+                  </div>
+                <a href="#" class="scrollToTop"><i class="fa fa-chevron-up text-white" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="search search-main">
+            <div id="btn-search-close" class="btn btn--search-close" aria-label="Close search form">
+                <i class="fa fa-times"></i>
+            </div>
+            <form class="search__form" action="{% url 'search' %}">
+                <input class="search__input" name="search" type="search" placeholder="Заголовок поста"
+                    autocapitalize="off" spellcheck="false" />
+                <span class="search__info">Нажмите ENTER для поиска или ESC чтобы выйти</span>
+            </form>
+        </div>
+        <!-- JS SCRIPTS -->
+        <script src="{% static "js/jquery.min.js"%}"></script>
+        <script src="{% static "js/jquery.scrollbar.min.js"%}"></script>
+        <script src="{% static "plugins/modernizr/modernizr.custom.js"%}"></script>
+        <script src="{% static "plugins/bootstrap/bootstrap.min.js"%}"></script>
+
+        <script src= {% static "js/csrf.js" %}></script>
+        <script src="{% static "js/custom.min.js"%}"></script>
+        <script src= {% static "js/vote.js" %}></script>
+        <script src= {% static "js/correct.js" %}></script> 
+ 
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+{% load static %} 
+                  <div class="col-lg-6 ">
+                  <div class="panel panel-default" >
+                    <div class="panel-body no-padding blog-post {% if answer.correct %}correct{% endif %}" id="{{answer.id}}">
+                      <p class="blog-date text-bold ">{{answer.date_published.date}}</p>
+                      <p>{{answer.text}}</p>
+                      <div class="post-details">
+                        <div class="post-details-name"><a href="{% url 'profile' answer.author.nickname %}"><span>Автор</span> {{answer.author.nickname}}</a></div>
+                        {% if answer.question.author == user.profile and answer.correct is  False %}
+                        <div class="check-block">
+                            <input class="post-check" type="checkbox" value="{{answer.id}}">
+                            <label class="form-check-label" for="{{answer.id}}">Correct</label>
+                        </div>
+                    {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>   

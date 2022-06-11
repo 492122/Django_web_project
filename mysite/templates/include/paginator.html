@@ -1,0 +1,54 @@
+{% block paginator %}
+<nav aria-label="objects" class="mt-5">
+    <ul class="pagination">
+        {%if seacrh%}
+        {% if objects.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?q={{q}}&page=1">1</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?q={{q}}&page={{ objects.previous_page_number }}">Назад</a>
+        </li>
+        {% endif %}
+
+        <li class="page-item">
+            <a class="page-link" href="?q={{q}}&page={{ objects.number }}">{{ objects.number }}</a>
+        </li>
+
+        {% if objects.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?q={{q}}&page={{ objects.next_page_number }}">Вперед</a>
+        </li>
+        <li>
+            <a class="page-link" href="?q={{q}}&page={{ objects.paginator.num_pages }}">{{ objects.paginator.num_pages
+                }}</a>
+        </li>
+        {% endif %}
+        {%else%}
+        {% if objects.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1">1</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ objects.previous_page_number }}">Назад</a>
+        </li>
+        {% endif %}
+
+        <li class="page-item">
+            <a class="page-link" href="?page={{ objects.number }}">{{ objects.number }}</a>
+        </li>
+
+        {% if objects.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ objects.next_page_number }}">Вперед</a>
+        </li>
+        <li>
+            <a class="page-link" href="?page={{ objects.paginator.num_pages }}">{{ objects.paginator.num_pages }}</a>
+        </li>
+        {% endif %}
+
+        {%endif%}
+
+    </ul>
+</nav>
+{% endblock %}

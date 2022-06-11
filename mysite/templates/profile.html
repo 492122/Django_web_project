@@ -1,0 +1,30 @@
+{% extends 'include/base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+
+
+
+                {% block content_head %}
+                        <h3>Профиль {{profile.nickname}}</h3>
+                {% endblock content_head %}
+                {% block content %}
+                <div class="margin_left_right_30">
+                <div class="row">
+                    
+                        {% if profile.avatar %}
+                            <img src="{{profile.avatar.url}}" >
+                        {% endif %}
+                        <h4>Имя пользователя: {{profile.user.first_name}} {{profile.user.last_name}}</h4>                      
+                        <h4>Nickname: {{profile.nickname}}</h4>
+                        <h4>Отдел: {{profile.get_department_display}}</h4>
+                        <h4>Пол: {{profile.get_gender_display}}</h4>
+                        <h4>Дата Рождения: {{profile.birthday}}</h4>
+                        {% if profile == user.profile %}
+                        <form action="{% url 'settings' %}">
+                            <button type="submit" class="btn btn-primary">Редактировать</button>
+                        </form>
+                        {% endif %}
+                </div>
+            </div>
+                {% endblock content %}

@@ -1,0 +1,42 @@
+
+{% load static %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static "plugins/bootstrap/bootstrap.min.css"%}" >
+
+</head>
+<body class="d-flex flex-column h-100">
+
+   <main class="flex-shrink-0">
+        <div class="container Login-form">
+            <div class="row pageHead">
+                <h4>Вход</h4>
+            </div>
+            <div class="row">
+            <div class="col-8">
+            <div class="row">
+            <h4 id="erroe-msg" style="color:red">{{ error }}</h4>
+            </div>
+            <form class='form' method = "POST" novalidate>
+            {% csrf_token %}
+            {% bootstrap_form form layout='inline' bound_css_class=''%}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                    Войти
+                </button>
+            {% endbuttons %}
+            </form>
+            </div>
+        </div>          
+    </main>
+    <script src= {%static "js/bootstrap.bundle.min.js" %}></script>
+</body>
+
+</html>
